@@ -1,0 +1,54 @@
+/*
+ * Theme: modern. Geometric sans, pill buttons, generous rounding, soft
+ * shadows and pill eyebrows. Friendly and current; suits most small businesses.
+ */
+
+@theme static {
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --t-container: 72rem;
+  --t-section-y: 6.5rem;
+
+  --t-display-weight: 750;
+  --t-display-tracking: -0.035em;
+  --t-display-leading: 1.04;
+  --t-title-weight: 700;
+  --t-title-tracking: -0.015em;
+
+  --t-eyebrow-case: none;
+  --t-eyebrow-tracking: 0;
+  --t-eyebrow-size: 0.875rem;
+
+  --t-btn-radius: 999px;
+  --t-btn-py: 0.85rem;
+  --t-btn-px: 1.5rem;
+
+  --t-card-radius: 1.5rem;
+  --t-card-border: 0px;
+  --t-card-shadow: 0 1px 2px color-mix(in oklab, var(--color-ink-900) 6%, transparent),
+    0 12px 32px -12px color-mix(in oklab, var(--color-ink-900) 16%, transparent);
+  --t-icon-radius: 1rem;
+  --t-media-radius: 1.75rem;
+  --t-logo-radius: 0.75rem;
+  --t-field-radius: 0.875rem;
+}
+
+@layer components {
+  .eyebrow {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background-color: var(--s-icon-bg);
+  }
+
+  .surface-alt .eyebrow {
+    background-color: var(--color-brand-100);
+  }
+
+  .surface-brand .card,
+  .surface-dark .card {
+    box-shadow: none;
+  }
+}
