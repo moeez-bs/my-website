@@ -1,0 +1,470 @@
+/*
+ * HostPepper site library: shared base. Identical in every generated site.
+ * Themes (theme.css) restyle through the --t-* variables and may override the
+ * component classes below; the palette (palette.css) supplies six numbers.
+ */
+
+@theme {
+  /* Only the library's own colours exist, so markup cannot drift off-palette. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+@theme static {
+  --color-brand-50: oklch(0.975 calc(var(--brand-c) * 0.1) var(--brand-h));
+  --color-brand-100: oklch(0.94 calc(var(--brand-c) * 0.22) var(--brand-h));
+  --color-brand-200: oklch(0.88 calc(var(--brand-c) * 0.42) var(--brand-h));
+  --color-brand-300: oklch(0.8 calc(var(--brand-c) * 0.68) var(--brand-h));
+  --color-brand-400: oklch(0.7 calc(var(--brand-c) * 0.9) var(--brand-h));
+  --color-brand-500: oklch(0.61 var(--brand-c) var(--brand-h));
+  --color-brand-600: oklch(0.53 var(--brand-c) var(--brand-h));
+  --color-brand-700: oklch(0.46 calc(var(--brand-c) * 0.92) var(--brand-h));
+  --color-brand-800: oklch(0.39 calc(var(--brand-c) * 0.8) var(--brand-h));
+  --color-brand-900: oklch(0.32 calc(var(--brand-c) * 0.68) var(--brand-h));
+  --color-brand-950: oklch(0.24 calc(var(--brand-c) * 0.55) var(--brand-h));
+
+  --color-accent-50: oklch(0.975 calc(var(--accent-c) * 0.1) var(--accent-h));
+  --color-accent-100: oklch(0.94 calc(var(--accent-c) * 0.22) var(--accent-h));
+  --color-accent-200: oklch(0.88 calc(var(--accent-c) * 0.42) var(--accent-h));
+  --color-accent-300: oklch(0.82 calc(var(--accent-c) * 0.7) var(--accent-h));
+  --color-accent-400: oklch(0.76 calc(var(--accent-c) * 0.92) var(--accent-h));
+  --color-accent-500: oklch(0.68 var(--accent-c) var(--accent-h));
+  --color-accent-600: oklch(0.58 var(--accent-c) var(--accent-h));
+  --color-accent-700: oklch(0.5 calc(var(--accent-c) * 0.9) var(--accent-h));
+  --color-accent-800: oklch(0.42 calc(var(--accent-c) * 0.78) var(--accent-h));
+  --color-accent-900: oklch(0.34 calc(var(--accent-c) * 0.66) var(--accent-h));
+  --color-accent-950: oklch(0.26 calc(var(--accent-c) * 0.55) var(--accent-h));
+
+  --color-ink-50: oklch(0.985 calc(var(--ink-c) * 0.4) var(--ink-h));
+  --color-ink-100: oklch(0.965 calc(var(--ink-c) * 0.6) var(--ink-h));
+  --color-ink-200: oklch(0.925 calc(var(--ink-c) * 0.8) var(--ink-h));
+  --color-ink-300: oklch(0.87 var(--ink-c) var(--ink-h));
+  --color-ink-400: oklch(0.71 var(--ink-c) var(--ink-h));
+  --color-ink-500: oklch(0.52 var(--ink-c) var(--ink-h));
+  --color-ink-600: oklch(0.45 var(--ink-c) var(--ink-h));
+  --color-ink-700: oklch(0.37 var(--ink-c) var(--ink-h));
+  --color-ink-800: oklch(0.28 var(--ink-c) var(--ink-h));
+  --color-ink-900: oklch(0.21 var(--ink-c) var(--ink-h));
+  --color-ink-950: oklch(0.15 var(--ink-c) var(--ink-h));
+
+  --color-paper: var(--t-paper, #ffffff);
+  --color-muted: var(--t-muted, var(--color-ink-50));
+}
+
+/*
+ * Surface-aware colours: `text-heading`, `text-body`, `bg-card`, `border-line`
+ * resolve against the nearest .surface-* ancestor, so one section markup works
+ * on light, brand and dark backgrounds.
+ */
+@theme inline {
+  --color-heading: var(--s-heading);
+  --color-body: var(--s-body);
+  --color-subtle: var(--s-subtle);
+  --color-line: var(--s-line);
+  --color-card: var(--s-card);
+  --color-eyebrow: var(--s-eyebrow);
+  --color-link: var(--s-link);
+  /* Brand-tinted washes for decorative shapes (map panels, photo backdrops). */
+  --color-tint: var(--s-tint);
+  --color-tint-strong: var(--s-tint-strong);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* ---------- Surfaces ---------- */
+
+  body,
+  .surface {
+    --s-bg: var(--color-paper);
+    --s-tint: var(--color-brand-50);
+    --s-tint-strong: var(--color-brand-100);
+    --s-heading: var(--color-ink-900);
+    --s-body: var(--color-ink-600);
+    --s-subtle: var(--color-ink-500);
+    --s-line: var(--color-ink-200);
+    --s-card: var(--color-paper);
+    --s-eyebrow: var(--color-brand-700);
+    --s-link: var(--color-brand-700);
+    --s-icon-bg: var(--color-brand-50);
+    --s-icon-fg: var(--color-brand-700);
+    --s-btn-bg: var(--color-brand-600);
+    --s-btn-fg: var(--color-white);
+    --s-btn-hover: var(--color-brand-700);
+    --s-ghost-fg: var(--color-ink-900);
+    --s-ghost-line: var(--color-ink-300);
+    --s-ghost-hover: var(--color-ink-100);
+    background-color: var(--s-bg);
+    color: var(--s-body);
+  }
+
+  .surface-alt {
+    --s-bg: var(--color-muted);
+    --s-tint: var(--color-paper);
+    --s-tint-strong: var(--color-brand-100);
+    --s-heading: var(--color-ink-900);
+    --s-body: var(--color-ink-600);
+    --s-subtle: var(--color-ink-500);
+    --s-line: var(--color-ink-200);
+    --s-card: var(--color-paper);
+    --s-eyebrow: var(--color-brand-700);
+    --s-link: var(--color-brand-700);
+    --s-icon-bg: var(--color-paper);
+    --s-icon-fg: var(--color-brand-700);
+    --s-btn-bg: var(--color-brand-600);
+    --s-btn-fg: var(--color-white);
+    --s-btn-hover: var(--color-brand-700);
+    --s-ghost-fg: var(--color-ink-900);
+    --s-ghost-line: var(--color-ink-300);
+    --s-ghost-hover: var(--color-paper);
+    background-color: var(--s-bg);
+    color: var(--s-body);
+  }
+
+  .surface-brand {
+    --s-bg: var(--color-brand-700);
+    --s-tint: var(--color-brand-800);
+    --s-tint-strong: var(--color-brand-600);
+    --s-heading: var(--color-white);
+    --s-body: var(--color-brand-100);
+    --s-subtle: var(--color-brand-200);
+    --s-line: color-mix(in oklab, var(--color-white) 18%, transparent);
+    --s-card: var(--color-brand-800);
+    --s-eyebrow: var(--color-accent-300);
+    --s-link: var(--color-white);
+    --s-icon-bg: var(--color-brand-600);
+    --s-icon-fg: var(--color-white);
+    --s-btn-bg: var(--color-white);
+    --s-btn-fg: var(--color-brand-800);
+    --s-btn-hover: var(--color-brand-50);
+    --s-ghost-fg: var(--color-white);
+    --s-ghost-line: color-mix(in oklab, var(--color-white) 45%, transparent);
+    --s-ghost-hover: color-mix(in oklab, var(--color-white) 10%, transparent);
+    background-color: var(--s-bg);
+    color: var(--s-body);
+  }
+
+  .surface-dark {
+    --s-bg: var(--color-ink-950);
+    --s-tint: var(--color-ink-900);
+    --s-tint-strong: var(--color-ink-800);
+    --s-heading: var(--color-white);
+    --s-body: var(--color-ink-300);
+    --s-subtle: var(--color-ink-400);
+    --s-line: color-mix(in oklab, var(--color-white) 14%, transparent);
+    --s-card: var(--color-ink-900);
+    --s-eyebrow: var(--color-accent-400);
+    --s-link: var(--color-accent-300);
+    --s-icon-bg: var(--color-ink-800);
+    --s-icon-fg: var(--color-accent-300);
+    --s-btn-bg: var(--color-brand-600);
+    --s-btn-fg: var(--color-white);
+    --s-btn-hover: var(--color-brand-700);
+    --s-ghost-fg: var(--color-white);
+    --s-ghost-line: color-mix(in oklab, var(--color-white) 35%, transparent);
+    --s-ghost-hover: color-mix(in oklab, var(--color-white) 8%, transparent);
+    background-color: var(--s-bg);
+    color: var(--s-body);
+  }
+
+  /* Text sitting on a photograph (hero-image). */
+  .surface-overlay {
+    --s-tint: color-mix(in oklab, var(--color-white) 8%, transparent);
+    --s-tint-strong: color-mix(in oklab, var(--color-white) 16%, transparent);
+    --s-heading: var(--color-white);
+    --s-body: color-mix(in oklab, var(--color-white) 86%, transparent);
+    --s-subtle: color-mix(in oklab, var(--color-white) 72%, transparent);
+    --s-line: color-mix(in oklab, var(--color-white) 25%, transparent);
+    --s-card: color-mix(in oklab, var(--color-ink-950) 55%, transparent);
+    --s-eyebrow: var(--color-accent-300);
+    --s-link: var(--color-white);
+    --s-icon-bg: color-mix(in oklab, var(--color-white) 14%, transparent);
+    --s-icon-fg: var(--color-white);
+    --s-btn-bg: var(--color-white);
+    --s-btn-fg: var(--color-ink-950);
+    --s-btn-hover: var(--color-brand-50);
+    --s-ghost-fg: var(--color-white);
+    --s-ghost-line: color-mix(in oklab, var(--color-white) 55%, transparent);
+    --s-ghost-hover: color-mix(in oklab, var(--color-white) 12%, transparent);
+    color: var(--s-body);
+  }
+
+  /* ---------- Layout ---------- */
+
+  .container-x {
+    width: 100%;
+    max-width: var(--t-container, 72rem);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 40rem) {
+    .container-x {
+      padding-inline: 2rem;
+    }
+  }
+
+  .section {
+    padding-block: calc(var(--t-section-y, 6rem) * 0.72);
+  }
+
+  @media (min-width: 64rem) {
+    .section {
+      padding-block: var(--t-section-y, 6rem);
+    }
+  }
+
+  /* ---------- Type ---------- */
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--t-eyebrow-font, var(--font-sans));
+    font-size: var(--t-eyebrow-size, 0.8125rem);
+    font-weight: var(--t-eyebrow-weight, 600);
+    letter-spacing: var(--t-eyebrow-tracking, 0.12em);
+    text-transform: var(--t-eyebrow-case, uppercase);
+    color: var(--s-eyebrow);
+  }
+
+  .display-1,
+  .display-2,
+  .title-3 {
+    font-family: var(--font-display);
+    color: var(--s-heading);
+    font-weight: var(--t-display-weight, 600);
+    letter-spacing: var(--t-display-tracking, -0.02em);
+    text-transform: var(--t-display-case, none);
+  }
+
+  .display-1 {
+    font-size: clamp(2.5rem, 1.6rem + 3.6vw, calc(4.5rem * var(--t-display-scale, 1)));
+    line-height: var(--t-display-leading, 1.05);
+  }
+
+  .display-2 {
+    font-size: clamp(2rem, 1.5rem + 1.8vw, calc(3rem * var(--t-display-scale, 1)));
+    line-height: calc(var(--t-display-leading, 1.05) + 0.07);
+  }
+
+  .title-3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: var(--t-title-tracking, -0.01em);
+    font-weight: var(--t-title-weight, 600);
+    text-transform: none;
+  }
+
+  .lead {
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.65;
+    color: var(--s-body);
+  }
+
+  /* ---------- Controls ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: var(--t-btn-py, 0.8rem) var(--t-btn-px, 1.4rem);
+    border-radius: var(--t-btn-radius, 0.5rem);
+    font-size: var(--t-btn-size, 0.9375rem);
+    font-weight: var(--t-btn-weight, 600);
+    letter-spacing: var(--t-btn-tracking, 0);
+    text-transform: var(--t-btn-case, none);
+    line-height: 1.2;
+    white-space: nowrap;
+    border: var(--t-btn-border, 1.5px) solid transparent;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background-color: var(--s-btn-bg);
+    color: var(--s-btn-fg);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--s-btn-hover);
+  }
+
+  .btn-ghost {
+    color: var(--s-ghost-fg);
+    border-color: var(--s-ghost-line);
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--s-ghost-hover);
+  }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    color: var(--s-link);
+  }
+
+  .link-arrow:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* ---------- Blocks ---------- */
+
+  .card {
+    background-color: var(--s-card);
+    border-radius: var(--t-card-radius, 1rem);
+    border: var(--t-card-border, 1px) solid var(--s-line);
+    box-shadow: var(--t-card-shadow, none);
+    padding: var(--t-card-pad, 1.75rem);
+  }
+
+  .icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--t-icon-radius, 0.75rem);
+    background-color: var(--s-icon-bg);
+    color: var(--s-icon-fg);
+  }
+
+  .media {
+    overflow: hidden;
+    border-radius: var(--t-media-radius, 1.25rem);
+    background-color: var(--color-ink-100);
+  }
+
+  .media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--t-logo-radius, 0.625rem);
+    background-color: var(--color-brand-600);
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .step-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--t-step-radius, 999px);
+    background-color: var(--color-brand-600);
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    background-color: var(--color-brand-100);
+    color: var(--color-brand-800);
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .field {
+    width: 100%;
+    border-radius: var(--t-field-radius, 0.5rem);
+    border: 1px solid var(--color-ink-300);
+    background-color: var(--color-paper);
+    padding: 0.75rem 0.9rem;
+    color: var(--color-ink-900);
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-500) 22%, transparent);
+  }
+
+  .stars {
+    display: inline-flex;
+    gap: 0.125rem;
+    color: var(--color-accent-500);
+  }
+}

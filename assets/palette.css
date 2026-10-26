@@ -1,0 +1,18 @@
+/*
+ * Site palette (ocean). These six numbers drive every colour on the site;
+ * base.css turns them into brand-50…950, accent-50…950 and ink-50…950.
+ *
+ * Hue (-h) is an angle 0-360: red 25, orange 50, amber 75, yellow 95,
+ * lime 125, green 150, teal 185, cyan 210, blue 250, indigo 270, violet 290,
+ * purple 310, pink 350.
+ * Chroma (-c) is colourfulness: 0.02 grey, 0.06 muted, 0.12 rich, 0.18 vivid.
+ * Keep --ink-c below 0.03 so body text stays neutral.
+ */
+:root {
+  --brand-h: 245;
+  --brand-c: 0.15;
+  --accent-h: 75;
+  --accent-c: 0.16;
+  --ink-h: 250;
+  --ink-c: 0.015;
+}
